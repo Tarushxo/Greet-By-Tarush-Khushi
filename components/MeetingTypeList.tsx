@@ -25,9 +25,12 @@ const MeetingTypeList = () => {
      if(!client || !user) return;
      
      try{
-      toast({
-        title: "Failed to create meeting",
-      })
+      if(!values.dateTime){
+        toast({
+          title: "Please select a date and time"})
+          return;
+      }
+      
         const id = crypto.randomUUID();
         const call = client.call('default' , id);
 
@@ -48,6 +51,8 @@ const MeetingTypeList = () => {
         if(!values.description){
           router.push(`/meeting/${id}`);
         }
+        toast({
+          title: "Meeting Created"})
      }
      catch(error){
       console.log(error);
