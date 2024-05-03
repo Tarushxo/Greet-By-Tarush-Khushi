@@ -10,14 +10,12 @@ export const metadata: Metadata = {
   }
 };
 
-const RouteLayout = ({children} : {children :ReactNode}) => {
+const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <main>
-        <StreamVideoProvider>
-        {children}
-        </StreamVideoProvider>
+      <StreamVideoProvider>{children}</StreamVideoProvider>
     </main>
-  )
-}
+  );
+};
 
-export default RouteLayout
+export default RootLayout;

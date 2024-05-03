@@ -5,8 +5,12 @@ import { useRouter } from 'next/navigation';
 import MeetingModal from './MeetingModal';
 import { useUser } from '@clerk/nextjs';
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
-import { link } from 'fs';
 import { useToast } from "@/components/ui/use-toast"
+import { Textarea } from "@/components/ui/textarea"
+import ReactDatePicker from "react-datepicker";
+import { Input } from './ui/input';
+
+
 
 const MeetingTypeList = () => {
     const router = useRouter();
@@ -61,6 +65,9 @@ const MeetingTypeList = () => {
       })
      }
     }
+
+    const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`  
+
   return (
     <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
       <HomeCard
@@ -91,7 +98,55 @@ const MeetingTypeList = () => {
         className="bg-green-1"
         handleClick={() => router.push('/recordings')}
       />
+{!callDetails ?(
+          <MeetingModal 
+          isOpen={meetingState === 'is Schedule Meeting'}
+          onClose={() => setMeetingState(undefined)}
+          title="Create A Meeting"
+          handleClick={createMeeting}
+        >   
+          <div className='flex flex-col gap-2.5'>
+            <label className='text-base text-normal leading-[22px] text-sky-2'>
+              Add Meeting Description
+            </label>
+            <Textarea className='border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0'
+            onChange={(e) => {
+              setValues({...values , description : e.target.value})
+            }}/>
+          </div>
+          <div className='flex flex-col gap-2.5 w-full'>
+          <label className='text-base text-normal leading-[22px] text-sky-2'>
+              Pick a Date & Time for The Meeting
+            </label>
+            <ReactDatePicker 
+              selected={values.dateTime}
+              onChange={(date) => setValues({...values , dateTime : date! })}
+              showTimeSelect
+              timeFormat='HH:mm'
+              timeIntervals={15}
+              timeCaption='time'
+              dateFormat="MMMM d, yyyy h:mm aa"
+              className='w-full rounded bg-dark-3 p-2 focus:outline-none'
+            />
+          </div>
+        </MeetingModal>
+      ):(
+        <MeetingModal 
+        isOpen={meetingState === 'is Schedule Meeting'}
+        onClose={() => setMeetingState(undefined)}
+        title="Meeting Created"
+        className="text-center"
+        handleClick={() => {
 
+          navigator.clipboard.writeText(meetingLink);
+            toast({ title: "Meeting Link Copied"})
+          }
+        }
+        image='/icons/checked.svg'
+        buttonIcon='/icons/copy.svg'
+        buttonText='Copy Meeting Link'
+      />
+      )}
       <MeetingModal 
         isOpen={meetingState === 'is Instant Meeting'}
         onClose={() => setMeetingState(undefined)}
@@ -100,6 +155,17 @@ const MeetingTypeList = () => {
         buttonText="Start Meeting"
         handleClick={createMeeting}
       />
+
+      <MeetingModal 
+        isOpen={meetingState === 'is Joining Meeting'}
+        onClose={() => setMeetingState(undefined)}
+        title="Enter Your Invitation Link"
+        className="text-center"
+        buttonText="Join Meeting"
+        handleClick={() => router.push(values.link)}
+      >
+        <Input placeholder='Enter Invitation Link' className='border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0' onChange={(e) => setValues({...values , link : e.target.value})} />
+      </MeetingModal>
 
     </section>
   )
