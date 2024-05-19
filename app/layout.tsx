@@ -9,8 +9,8 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Greet By Tarush",
-  description: "Free time me kuch karlu",
+  title: "Greet By Tarush & Khushi",
+  description: "A video confrencing app powered by Stream.io",
   icons: {
     icon: "/icons/logo.svg"
   }
