@@ -4,7 +4,7 @@ import Sidebar from '@/components/Sidebar'
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Greet By Tarush",
+  title: "Greet By Tarush & Khushi",
   description: "Free time me kuch karlu",
   icons: {
     icon: "/icons/logo.svg"
