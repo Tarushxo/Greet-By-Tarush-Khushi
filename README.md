@@ -1,5 +1,6 @@
 <h1>You Can Visit The Website At : </h1> https://zoombytarushandkhushi.vercel.app/
 <br>
+Khushi's GitHub - (https://github.com/Khushipant)
 <br>
 This is a [Next.js] project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
