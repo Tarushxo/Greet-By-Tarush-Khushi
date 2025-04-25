@@ -1,4 +1,4 @@
-<h1>You Can Visit The Website At : </h1> https://zoombytarushandkhushi.vercel.app/
+<h1>You Can Visit The Website At : </h1> https://greetbytarushandkhushi.vercel.app/
 <br>
 <br>
 Khushi's GitHub - (https://github.com/Khushipant)
